@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'candidate-platform';
   public candidates: Candidate[] = [];
   editCandidate!: Candidate;
+  deleteCurrCandidate!: Candidate;
   constructor(private candidateService: CandidateService) {}
 
   ngOnInit(){
@@ -45,8 +46,21 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public onDeleteCandidate(candidateId: number): void {
+    this.candidateService.deleteCandidate(candidateId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getCandidates();
+        // editForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        // editForm.reset();
+      }
+    );
+  }
+
   public onUpdateCandidate(candidate: Candidate): void {
-    document.getElementById('add-employee-form')?.click();
     this.candidateService.updateCandidate(candidate).subscribe(
       (response: Candidate) => {
         console.log(response);
@@ -74,7 +88,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#updateCandidateModal');
     }
     if (mode === 'delete') {
-      // this.deleteEmployee = employee;
+      this.deleteCurrCandidate = candidate;
       button.setAttribute('data-target', '#deleteCandidateModal');
     }
     container?.appendChild(button);

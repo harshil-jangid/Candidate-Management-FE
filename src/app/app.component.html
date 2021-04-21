@@ -1,22 +1,33 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="https://pbs.twimg.com/profile_images/947326540362145792/b_bKzWxB_400x400.jpg" width="40" height="40" alt="">
+  </a>
   <a class="navbar-brand" style="color:white;">Candidate Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarColor02">
-     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-           <a class="nav-link" (click)="onOpenModal(candidates[0], 'add')">Add Employee<span class="sr-only">(current)</span></a>
-        </li>
-     </ul>
-     <form class="form-inline my-2 my-lg-0">
-        <input type="search" class="form-control mr-sm-2" placeholder="Search employees..." required>
-     </form>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" style="color:white" href="#" (click)="onOpenModal(candidates[0], 'add')">Add Employee<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input type="search" class="form-control mr-sm-2" placeholder="Search Candidates..." required>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
 </nav>
+
+
+
+
 <div class="container" id="main-container">
     <div class="row">
         <div *ngFor="let candidate of candidates" class="col-md-6 col-xl-3">
@@ -26,7 +37,7 @@
                         <a href=""><img src="{{candidate?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
                     </div>
                     <div class="col-6 card-title align-self-center mb-0">
-                        <h5>{{candidate?.name}}{{candidate?.id}}</h5>
+                        <h5>{{candidate?.name}}</h5>
                         <p class="m-0">{{candidate?.jobTitle}}</p>
                     </div>
                 </div>
@@ -172,10 +183,10 @@
            </button>
         </div>
         <div class="modal-body">
-           <p>Are you sure you want to delete employee </p>
+           <p>Are you sure you want to delete this Candidate? </p>
            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" >No</button>
-              <button  class="btn btn-danger" data-dismiss="modal">Yes</button>
+              <button type="button" data-dismiss="modal" class="btn btn-secondary" >No</button>
+              <button (click)="onDeleteCandidate(deleteCurrCandidate.id)"  class="btn btn-danger" data-dismiss="modal">Yes</button>
            </div>
         </div>
      </div>
