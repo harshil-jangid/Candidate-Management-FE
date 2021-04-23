@@ -4,32 +4,42 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import {
   GoogleLoginProvider,
 } from 'angularx-social-login';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CandidateService } from './candidate.service';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { CandidatesProfileComponent } from './candidates-profile/candidates-profile.component';
 import {AuthGuardService} from './auth-guard.service';
+import { RouterModule } from '@angular/router';
+import { TrendsComponent } from './trends/trends.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleLoginComponent,
-    CandidatesProfileComponent
+    CandidatesProfileComponent,
+    TrendsComponent
   ],
   imports: [
+    RouterModule.forRoot([
+      {path: '', component: GoogleLoginComponent},
+      {path: 'candidates', component: CandidatesProfileComponent, canActivate: [AuthGuardService]},
+      // {path: '**', component: GoogleLoginComponent},
+      {path: 'trends', component: TrendsComponent}
+
+    ]),
+    ChartsModule,
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

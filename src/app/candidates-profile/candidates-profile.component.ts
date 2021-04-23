@@ -6,6 +6,8 @@ import { Candidate } from '../candidate';
 import {GoogleLoginComponent} from '../google-login/google-login.component'
 import { Router } from '@angular/router';
 import { SocialAuthService } from 'angularx-social-login';
+import { ChartType } from 'chart.js';
+
 
 @Component({
   selector: 'app-candidates-profile',
@@ -16,6 +18,20 @@ export class CandidatesProfileComponent implements OnInit {
 
   title = 'candidate-platform';
   public candidates: Candidate[] = [];
+
+
+  TrendsOrCandidates: Boolean=false;
+  TrendText:String="Trends";
+  public trendOnOff():void{
+    this.TrendsOrCandidates=!this.TrendsOrCandidates;
+    if(this.TrendsOrCandidates)
+    {
+      this.TrendText="Candidates";
+    }else{
+      this.TrendText="Trends";
+    }
+  }
+
   editCandidate!: Candidate;
   deleteCurrCandidate!: Candidate;
   constructor(
@@ -24,12 +40,24 @@ export class CandidatesProfileComponent implements OnInit {
     private candidateService: CandidateService
     ) {}
 
+    public barChartOptions = {
+      scaleShowVerticalLines: false,
+      responsive: true
+    };
+    public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    public barChartType: ChartType = 'bar';
+    public barChartLegend = true;
+    public barChartData = [
+      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Location'}
+  
+    ];
+
   ngOnInit(){
     this.getCandidates();
   }
 
   logout(): void {
-    this.socialAuthServive.signOut().then(() => this.router.navigate(['/']));
+    this.socialAuthServive.signOut().then(() => this.router.navigate(['']));
   }
 
   public getCandidates(): void{

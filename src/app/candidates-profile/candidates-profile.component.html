@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <a class="navbar-brand" href="#">
-    <img src="https://pbs.twimg.com/profile_images/947326540362145792/b_bKzWxB_400x400.jpg" width="40" height="40" alt="">
+    <img src="http://clipart-library.com/images_k/face-silhouette-outline/face-silhouette-outline-10.png" width="40" height="40" alt="">
   </a>
   <a class="navbar-brand" style="color:white;">Candidate Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,10 +13,10 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" style="color:white"  (click)="onOpenModal(candidates[0], 'add')">Add Employee<span class="sr-only">(current)</span></a>
+        <a class="nav-link" style="color:white" (click)="onOpenModal(candidates[0], 'add')">Add Employee<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" (click)="trendOnOff()" style="color:white" >{{TrendText}}</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -29,7 +29,7 @@
 
 
 
-<div class="container" id="main-container">
+<div *ngIf="!TrendsOrCandidates" class="container" id="main-container">
     <div class="row">
         <div *ngFor="let candidate of candidates" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
@@ -200,7 +200,20 @@
 <div *ngIf="socialAuthServive.authState | async as socialUser">
   <p>Hello, {{socialUser.name}}!</p>
   <br>
-  <p>Your email: {{socialUser.email}}</p>
+  <p>Your email: {{socialUser.authToken}}</p>
   <br>
   <button mat-raised-button (click)="logout()">Logout</button>
+</div>
+
+
+<div *ngIf="TrendsOrCandidates">
+  <div id="divChart" style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
 </div>
