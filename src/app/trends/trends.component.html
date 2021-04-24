@@ -1,15 +1,54 @@
-<p>trends works!</p>
-
-<div>
-  <div id="divChart" style="display: block">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-    </canvas>
+<nav class="navbar navbar-expand navbar-light bg-primary">
+  <div class="nav navbar-nav">
+    <h5 class="nav-item nav-link active text-white">CHARTS DASHBOARD </h5>
   </div>
+</nav>
+<div style="display:flex; justify-content:center; margin:30px">
+<input style="margin:10px" class="btn btn-primary" (click)="activeTrend('first')" type="button" value="Skills">
+<input style="margin:10px" class="btn btn-primary" (click)="activeTrend('second')" type="submit" value="Location">
+<input style="margin:10px" class="btn btn-primary" (click)="activeTrend('third')" type="reset" value="Reset">
 </div>
+
+<div style="display:flex; justify-content:center;" *ngIf="first">
+<ngx-charts-pie-chart 
+    [results]="skills"
+    [legend]="true"
+    [legendTitle]="'Skills'" 
+    [view]="[1400,600]"
+    [labels]="true" >
+</ngx-charts-pie-chart>
+</div>
+
+
+<div style="display:flex; justify-content:center;" *ngIf="second">
+<ngx-charts-bar-vertical 
+  [view]="[700, 400]"
+  [scheme]="colorScheme"
+  [results]="locations"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+</div>
+
+
+<div style="display:flex; justify-content:center;" *ngIf="third">
+<ngx-charts-advanced-pie-chart 
+  [view]="[700, 400]"
+  [scheme]="colorScheme"
+  [results]="skills"
+  [gradient]="gradient"
+  >
+</ngx-charts-advanced-pie-chart>
+</div>
+
+
+
 
 

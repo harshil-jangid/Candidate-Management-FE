@@ -12,11 +12,8 @@
 
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color:white" (click)="onOpenModal(candidates[0], 'add')">Add Employee<span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="trendOnOff()" style="color:white" >{{TrendText}}</a>
+        <a class="nav-link" href="/trends" style="color:white" >Trends</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -27,9 +24,12 @@
 </nav>
 
 
+<div style="display:flex; justify-content:flex-end; margin:30px">
+<input (click)="onOpenModal(candidates[0], 'add')" class="btn btn-primary" type="button" value="Add Candidate">
+</div>
 
 
-<div *ngIf="!TrendsOrCandidates" class="container" id="main-container">
+<div class="container" id="main-container">
     <div class="row">
         <div *ngFor="let candidate of candidates" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
@@ -108,6 +108,14 @@
           <div class="form-group">
              <label for="joiningLocation">Joining Location</label>
              <input type="text" ngModel name="joiningLocation" class="form-control" id="joiningLocation" placeholder="Joining Location" required>
+          </div>
+          <div class="form-group">
+             <label for="skill">Skill</label>
+             <input type="text" ngModel name="skill" class="form-control" id="skill" placeholder="Joining Location" required>
+          </div>
+          <div class="form-group">
+             <label for="description">Description</label>
+             <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Joining Location" required>
           </div>
           <div class="modal-footer">
              <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -205,15 +213,3 @@
   <button mat-raised-button (click)="logout()">Logout</button>
 </div>
 
-
-<div *ngIf="TrendsOrCandidates">
-  <div id="divChart" style="display: block">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-    </canvas>
-  </div>
-</div>

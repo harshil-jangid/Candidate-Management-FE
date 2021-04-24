@@ -16,6 +16,8 @@ import {AuthGuardService} from './auth-guard.service';
 import { RouterModule } from '@angular/router';
 import { TrendsComponent } from './trends/trends.component';
 import { ChartsModule } from 'ng2-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { ChartsModule } from 'ng2-charts';
     AppComponent,
     GoogleLoginComponent,
     CandidatesProfileComponent,
-    TrendsComponent
+    TrendsComponent,
+
   ],
   imports: [
     RouterModule.forRoot([
@@ -39,6 +42,8 @@ import { ChartsModule } from 'ng2-charts';
     ReactiveFormsModule,
     FormsModule,
     SocialLoginModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
     
   ],
   providers: [{

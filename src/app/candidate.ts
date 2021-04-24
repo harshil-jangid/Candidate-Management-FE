@@ -8,4 +8,6 @@ export interface Candidate{
     joiningDate: string;
     collegeName: string;
     joiningLocation: string;
+    skill: string;
+    description: string;
 }

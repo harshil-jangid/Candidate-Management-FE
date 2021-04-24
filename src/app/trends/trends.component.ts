@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Chart, ChartType } from 'chart.js'
+import { TrendsService } from '../trends.service';
+
 @Component({
   selector: 'app-trends',
   templateUrl: './trends.component.html',
@@ -7,19 +10,61 @@ import { Chart, ChartType } from 'chart.js'
 })
 export class TrendsComponent implements OnInit {
 
-  constructor() { }
-  public barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-  public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartData = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Location'}
 
-  ];
+  constructor(private trendsService: TrendsService) { }
+
+  public locations: any;
+  public skills: any;
+
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Location';
+  showYAxisLabel = true;
+  yAxisLabel = 'Number';
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+  public getTrends(): void {
+    this.trendsService.getLocation().subscribe((data) => {
+      this.locations = data;
+    });
+    this.trendsService.getSkills().subscribe((data) => {
+      this.skills = data;
+    });
+  }
+
+  first=true;
+  second=false;
+  third=false;
+
+  public activeTrend(mode: string): void{
+    if(mode==='first'){
+      this.first=true;
+      this.second=false;
+      this.third=false;
+    }
+    if(mode==='second'){
+      this.first=false;
+      this.second=true;
+      this.third=false;
+    }
+    if(mode==='third'){
+      this.first=false;
+      this.second=false;
+      this.third=true;
+    }
+  }
+
   ngOnInit() {
+    this.getTrends();
+  }
+  onSelect(event) {
+    console.log(event);
   }
 
 }
