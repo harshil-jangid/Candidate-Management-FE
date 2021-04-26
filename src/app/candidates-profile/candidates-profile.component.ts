@@ -19,7 +19,8 @@ export class CandidatesProfileComponent implements OnInit {
 
   editCandidate!: Candidate;
   deleteCurrCandidate!: Candidate;
-  
+  detailsCandidate!: Candidate;
+
   noResults=false;
   constructor(
     public socialAuthServive: SocialAuthService,
@@ -89,13 +90,16 @@ export class CandidatesProfileComponent implements OnInit {
       }
     }
     this.candidates = results;
-    
-    if(results.length === 0 && key){
+    if(key && results.length === 0){
+      this.candidates = results;
       this.noResults=true;
-    }else{
+    }
+    else if(results.length === 0 || !key){
       this.getCandidates();
       this.noResults=false;
     }
+    
+    
   }
 
   public onUpdateCandidate(candidate: Candidate): void {
@@ -128,6 +132,10 @@ export class CandidatesProfileComponent implements OnInit {
     if (mode === 'delete') {
       this.deleteCurrCandidate = candidate;
       button.setAttribute('data-target', '#deleteCandidateModal');
+    }
+    if (mode === 'details') {
+      this.detailsCandidate = candidate;
+      button.setAttribute('data-target', '.bd-example-modal-lg');
     }
     container?.appendChild(button);
     button.click();

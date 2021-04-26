@@ -35,8 +35,8 @@ import { LogsComponent } from './logs/logs.component';
       {path: '', component: GoogleLoginComponent},
       {path: 'candidates', component: CandidatesProfileComponent, canActivate: [AuthGuardService]},
       // {path: '**', component: GoogleLoginComponent},
-      {path: 'trends', component: TrendsComponent},
-      {path: 'logs', component: LogsComponent}
+      {path: 'trends', component: TrendsComponent, canActivate: [AuthGuardService]},
+      {path: 'logs', component: LogsComponent, canActivate: [AuthGuardService]}
 
     ]),
     ChartsModule,
