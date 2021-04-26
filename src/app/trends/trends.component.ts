@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Chart, ChartType } from 'chart.js'
-import { TrendsService } from '../trends.service';
+import { TrendsService } from '../services/trends.service';
 
 @Component({
   selector: 'app-trends',

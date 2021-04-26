@@ -1,13 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { CandidateService } from '../candidate.service';
-import { Candidate } from '../candidate';
-import {GoogleLoginComponent} from '../google-login/google-login.component'
+import { CandidateService } from '../services/candidate.service';
+import { Candidate } from '../models/candidate';
 import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
-import { ChartType } from 'chart.js';
-import {TrendsComponent} from '../trends/trends.component';
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-candidates-profile',
@@ -22,6 +20,7 @@ export class CandidatesProfileComponent implements OnInit {
   editCandidate!: Candidate;
   deleteCurrCandidate!: Candidate;
   
+  noResults=false;
   constructor(
     public socialAuthServive: SocialAuthService,
     private router: Router,
@@ -53,7 +52,6 @@ export class CandidatesProfileComponent implements OnInit {
       (response: Candidate) => {
         console.log(response);
         this.getCandidates();
-        // TrendsComponent.getTrends();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -63,8 +61,8 @@ export class CandidatesProfileComponent implements OnInit {
     );
   }
 
-  public onDeleteCandidate(candidateId: number): void {
-    this.candidateService.deleteCandidate(candidateId).subscribe(
+  public onDeleteCandidate(candidateId: number, deletedById: string): void {
+    this.candidateService.deleteCandidate(candidateId,deletedById).subscribe(
       (response: void) => {
         console.log(response);
         this.getCandidates();
@@ -75,6 +73,29 @@ export class CandidatesProfileComponent implements OnInit {
         // editForm.reset();
       }
     );
+  }
+  
+  public searchCandidates(key: string):void{
+    const results: Candidate[]=[];
+    for(const candidate of this.candidates){
+      if(candidate.name.toLowerCase().indexOf(key.toLowerCase()) != -1
+      || candidate.jobTitle.toLowerCase().indexOf(key.toLowerCase()) != -1
+      || candidate.phone.toLowerCase().indexOf(key.toLowerCase()) != -1
+      || candidate.joiningLocation.toLowerCase().indexOf(key.toLowerCase()) != -1
+      || candidate.skill.toLowerCase().indexOf(key.toLowerCase()) != -1
+      || candidate.collegeName.toLowerCase().indexOf(key.toLowerCase()) != -1){
+        results.push(candidate);
+        this.noResults=false;
+      }
+    }
+    this.candidates = results;
+    
+    if(results.length === 0 && key){
+      this.noResults=true;
+    }else{
+      this.getCandidates();
+      this.noResults=false;
+    }
   }
 
   public onUpdateCandidate(candidate: Candidate): void {

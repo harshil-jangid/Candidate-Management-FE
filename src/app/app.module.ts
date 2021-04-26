@@ -9,15 +9,16 @@ import {
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
-import { CandidateService } from './candidate.service';
+import { CandidateService } from './services/candidate.service';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { CandidatesProfileComponent } from './candidates-profile/candidates-profile.component';
-import {AuthGuardService} from './auth-guard.service';
+import {AuthGuardService} from './services/auth-guard.service';
 import { RouterModule } from '@angular/router';
 import { TrendsComponent } from './trends/trends.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LogsComponent } from './logs/logs.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GoogleLoginComponent,
     CandidatesProfileComponent,
     TrendsComponent,
+    LogsComponent,
 
   ],
   imports: [
@@ -33,7 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       {path: '', component: GoogleLoginComponent},
       {path: 'candidates', component: CandidatesProfileComponent, canActivate: [AuthGuardService]},
       // {path: '**', component: GoogleLoginComponent},
-      {path: 'trends', component: TrendsComponent}
+      {path: 'trends', component: TrendsComponent},
+      {path: 'logs', component: LogsComponent}
 
     ]),
     ChartsModule,

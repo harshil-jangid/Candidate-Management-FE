@@ -10,4 +10,6 @@ export interface Candidate{
     joiningLocation: string;
     skill: string;
     description: string;
+    createdBy: string;
+    lastUpdatedBy: string;
 }
