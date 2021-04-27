@@ -169,6 +169,8 @@
   </div>
 </div>
 
+<p *ngIf="socialAuthServive.authState | async as socialUser">
+{{socialUser.email}}</p>
 
 <div *ngIf="socialAuthServive.authState | async as socialUser" class="modal fade" id="deleteCandidateModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

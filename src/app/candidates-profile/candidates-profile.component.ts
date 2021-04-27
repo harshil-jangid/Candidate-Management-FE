@@ -20,7 +20,7 @@ export class CandidatesProfileComponent implements OnInit {
   editCandidate!: Candidate;
   deleteCurrCandidate!: Candidate;
   detailsCandidate!: Candidate;
-
+  
   noResults=false;
   constructor(
     public socialAuthServive: SocialAuthService,
