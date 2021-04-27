@@ -8,12 +8,16 @@ import { LogsService } from '../services/logs.service'
   styleUrls: ['./logs.component.css']
 })
 export class LogsComponent implements OnInit {
+  detailOldLog: any;
+  detailNewLog: any;
 
   constructor(
     private logsService: LogsService
   ) { }
 
   public logs: Logs[] = [];
+    public oldValues: any[]=[];
+    public newValues: any[]=[];
 
   ngOnInit(): void {
     this.getLogs();
@@ -25,11 +29,37 @@ export class LogsComponent implements OnInit {
       (response: Logs[])=>{
         this.logs=response;
         console.log(this.logs);
+        for(let log of this.logs){
+          var jsonObjOld = JSON.parse(log.oldValue);
+          var jsonObjNew = JSON.parse(log.newValue);
+          this.oldValues.push(jsonObjOld); 
+          this.newValues.push(jsonObjNew); 
+
+        }
+        console.log(this.oldValues);
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);
       }
     );
+  }
+
+  public onOpenModal(oldValue: any,newValue: any, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if (mode === 'details') {
+      this.detailOldLog = oldValue;
+      this.detailNewLog = newValue;
+
+      console.log(this.detailOldLog);
+      console.log(this.detailNewLog);
+      button.setAttribute('data-target', '.bd-example-modal-lg');
+    }
+    container?.appendChild(button);
+    button.click();
   }
 
 }

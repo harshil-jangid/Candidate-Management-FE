@@ -10,7 +10,7 @@
 <a href="/candidates" style="color:white;" class="btn btn-primary"> < Go Back</a>
 </div>
 
-<div class="container" style="margin-top: 50px;">
+<div id="main-container" class="container" style="margin-top: 50px;">
 <div class="row" class="container" id="main-container" style="margin-top: 30px;">
         <div class="col-12">
             <div class="card card-margin">
@@ -29,10 +29,11 @@
                                              <th style="text-align: center;"><span>Candidate Id</span></th>
                                              <th style="text-align: center;"><span>Time</span></th>
                                              <th style="text-align: center;"><span>Action Performed By</span></th>
+                                             <th>&nbsp;</th>
                                              </tr>
                                           </thead>
                                             <tbody>
-                                                <tr *ngFor="let log of logs">
+                                                <tr *ngFor="let log of logs; let i=index;">
                                                     <td>
                                                         <div class="widget-26-job-title">
                                                             <a></a>
@@ -62,6 +63,11 @@
                                                             <p style="text-align: center;" class="text-muted m-0"><span class="location">{{log?.email}}</span></p>
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        <div class="widget-26-job-info">
+                                                            <button (click)="onOpenModal(oldValues[i],newValues[i], 'details')" class="nav-link btn btn-primary " style="color:white" >View</button>
+                                                        </div>
+                                                    </td>
 
                                                 </tr>
                                             </tbody>
@@ -76,4 +82,189 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="container">
+        <div class="main-body">
+          <div class="row gutters-sm" style="flex-direction:column">
+            <div Style="display:flex; justify-content:space-between;">
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <img src="{{detailOldLog?.imageUrl}}" alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                        <h4>{{detailOldLog?.name}}</h4>
+                        <p class="text-secondary mb-1">{{detailOldLog?.jobTitle}}</p>
+                        <p class="text-muted font-size-sm">{{detailOldLog?.joiningLocation}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center;">
+              <i style="font-size: -webkit-xxx-large; color: cornflowerblue;" class="far fa-arrow-alt-circle-right"></i>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <img src="{{detailNewLog?.imageUrl}}" alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                        <h4>{{detailNewLog?.name}}</h4>
+                        <p class="text-secondary mb-1">{{detailNewLog?.jobTitle}}</p>
+                        <p class="text-muted font-size-sm">{{detailNewLog?.joiningLocation}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; padding-left: 0px; padding-right: 0px;">
+              <div style="width:50%" class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.name}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.email}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Phone</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.phone}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Joining Location</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.joiningLocation}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Joining Date</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.joiningLocation}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Skill</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.skill}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Description</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailOldLog?.description}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="width:50%" class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.name}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.email}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Phone</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.phone}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Joining Location</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.joiningLocation}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Joining Date</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.joiningLocation}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Skill</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.skill}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Description</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        {{detailNewLog?.description}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

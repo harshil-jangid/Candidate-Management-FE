@@ -4,4 +4,6 @@ export interface Logs{
     email: string;
     candidateId: number;
     timeStamp: string;
+    oldValue: string;
+    newValue: string;
 }
