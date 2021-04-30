@@ -19,12 +19,13 @@ export class TrendsComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Location';
+  xAxisLabel = 'Skills';
   showYAxisLabel = true;
   yAxisLabel = 'Number';
+  legendTitle: string = 'Years';
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#540D6E', '#EE4266', '#FFD23F', '#3BCEAC', '#EAD69']
   };
 
   public getTrends(): void {
@@ -38,23 +39,17 @@ export class TrendsComponent implements OnInit {
 
   first=true;
   second=false;
-  third=false;
 
   public activeTrend(mode: string): void{
     if(mode==='first'){
       this.first=true;
       this.second=false;
-      this.third=false;
+      this.xAxisLabel="Skills"
     }
     if(mode==='second'){
       this.first=false;
       this.second=true;
-      this.third=false;
-    }
-    if(mode==='third'){
-      this.first=false;
-      this.second=false;
-      this.third=true;
+      this.xAxisLabel="Locations"
     }
   }
 
@@ -63,6 +58,13 @@ export class TrendsComponent implements OnInit {
   }
   onSelect(event) {
     console.log(event);
+  }
+  onActivate(locations): void {
+    console.log('Activate', JSON.parse(JSON.stringify(locations)));
+  }
+
+  onDeactivate(locations): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(locations)));
   }
 
 }

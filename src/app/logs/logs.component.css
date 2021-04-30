@@ -12,6 +12,10 @@ body{
   font-weight: 400;
 }
 
+.changed{
+  background: blanchedalmond;
+}
+
 .widget-26 tr:first-child td {
   border: 0;
 }

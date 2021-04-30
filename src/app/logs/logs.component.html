@@ -18,7 +18,6 @@
                     <div class="row search-body">
                         <div class="col-lg-12">
                             <div class="search-result">
-
                                 <div class="result-body">
                                     <div class="table-responsive">
                                         <table class="table widget-26">
@@ -49,7 +48,9 @@
                                                     <td>
                                                         <div class="widget-26-job-info">
                                                             <p class="type m-0"></p>
-                                                            <p style="text-align: center;" class="text-muted m-0"><span class="location">{{log?.candidateId}}</span></p>
+                                                            <p *ngIf="(!oldValues[i]?.id && newValues[i]?.id)" style="text-align: center;" class="text-muted m-0"><span class="location">{{newValues[i]?.id}}</span></p>
+                                                            <p *ngIf="log?.action === 'Deleted this Candidate'" style="text-align: center;" class="text-muted m-0"><span class="location">{{log?.candidateId}}</span></p>
+                                                            <p *ngIf="(newValues[i]?.id && oldValues[i]?.id)" style="text-align: center;" class="text-muted m-0"><span class="location">{{log?.candidateId}}</span></p>
                                                         </div>
                                                     </td>
                                                     <td style="text-align: center;">
@@ -63,9 +64,11 @@
                                                             <p style="text-align: center;" class="text-muted m-0"><span class="location">{{log?.email}}</span></p>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td >
                                                         <div class="widget-26-job-info">
-                                                            <button (click)="onOpenModal(oldValues[i],newValues[i], 'details')" class="nav-link btn btn-primary " style="color:white" >View</button>
+                                                            <button *ngIf="(log.action === 'Added new Candidate')" (click)="onOpenModal2(newValues[i], 'details')" class="nav-link btn btn-primary " style="color:white" >View</button>
+                                                            <button *ngIf="(log.action === 'Deleted this Candidate')" (click)="onOpenModal2(oldValues[i], 'details')" class="nav-link btn btn-primary " style="color:white" >View</button>
+                                                            <button *ngIf="(log.action === 'Updated this Candidate')" (click)="onOpenModal(oldValues[i],newValues[i], 'details')" class="nav-link btn btn-primary " style="color:white" >View</button>
                                                         </div>
                                                     </td>
 
@@ -115,9 +118,9 @@
                     <div class="d-flex flex-column align-items-center text-center">
                         <img src="{{detailNewLog?.imageUrl}}" alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
-                        <h4>{{detailNewLog?.name}}</h4>
-                        <p class="text-secondary mb-1">{{detailNewLog?.jobTitle}}</p>
-                        <p class="text-muted font-size-sm">{{detailNewLog?.joiningLocation}}</p>
+                        <h4 style="border-radius: 18px;" >{{detailNewLog?.name}}</h4>
+                        <p style="border-radius: 18px;" [ngClass]="{'changed': !(detailOldLog?.jobTitle === detailNewLog?.jobTitle)}" class="text-secondary mb-1">{{detailNewLog?.jobTitle}}</p>
+                        <p style="border-radius: 18px;" [ngClass]="{'changed': !(detailOldLog?.joiningLocation === detailNewLog?.joiningLocation)}" class="text-muted font-size-sm">{{detailNewLog?.joiningLocation}}</p>
                         </div>
                     </div>
                     </div>
@@ -128,7 +131,7 @@
               <div style="width:50%" class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                    <div class="row">
+                    <div class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Full Name</h6>
                         </div>
@@ -137,7 +140,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Email</h6>
                         </div>
@@ -146,7 +149,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row"style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Phone</h6>
                         </div>
@@ -155,16 +158,16 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
+                    <div class="row" style="border-radius: 18px;">
+                        <div style="width: 27%;" class="col-sm-3">
                         <h6 class="mb-0">Joining Location</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div style="width: 73%;" class="col-sm-9 text-secondary">
                         {{detailOldLog?.joiningLocation}}
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Joining Date</h6>
                         </div>
@@ -173,7 +176,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Skill</h6>
                         </div>
@@ -182,11 +185,11 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
+                    <div class="row" style="border-radius: 18px;">
+                        <div style="width: 32%;" class="col-sm-3">
                         <h6 class="mb-0">Description</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div style="width: 68%;" class="col-sm-9 text-secondary">
                         {{detailOldLog?.description}}
                         </div>
                     </div>
@@ -196,7 +199,7 @@
               <div style="width:50%" class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                    <div class="row">
+                    <div [ngClass]="{'changed': !(detailOldLog?.name === detailNewLog?.name)}" class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Full Name</h6>
                         </div>
@@ -205,7 +208,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div [ngClass]="{'changed': !(detailOldLog?.email === detailNewLog?.email)}" class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Email</h6>
                         </div>
@@ -214,7 +217,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div [ngClass]="{'changed': !(detailOldLog?.phone === detailNewLog?.phone)}" class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Phone</h6>
                         </div>
@@ -223,25 +226,25 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
+                    <div [ngClass]="{'changed': !(detailOldLog?.joiningLocation === detailNewLog?.joiningLocation)}" class="row" style="border-radius: 18px;">
+                        <div style="width: 27%;" class="col-sm-3">
                         <h6 class="mb-0">Joining Location</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div style="width: 73%;" class="col-sm-9 text-secondary">
                         {{detailNewLog?.joiningLocation}}
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
+                    <div [ngClass]="{'changed': !(detailOldLog?.joiningDate === detailNewLog?.joiningDate)}" class="row" style="border-radius: 18px;">
+                        <div  class="col-sm-3">
                         <h6 class="mb-0">Joining Date</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div  class="col-sm-9 text-secondary">
                         {{detailNewLog?.joiningLocation}}
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div [ngClass]="{'changed': !(detailOldLog?.skill === detailNewLog?.skill)}" class="row" style="border-radius: 18px;">
                         <div class="col-sm-3">
                         <h6 class="mb-0">Skill</h6>
                         </div>
@@ -250,13 +253,109 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
+                    <div [ngClass]="{'changed': !(detailOldLog?.skill === detailNewLog?.skill)}" class="row" style="border-radius: 18px;">
+                        <div style="width: 32%;" class="col-sm-3">
                         <h6 class="mb-0">Description</h6>
                         </div>
-                        <div class="col-sm-9 text-secondary">
+                        <div style="width: 68%;" class="col-sm-9 text-secondary">
                         {{detailNewLog?.description}}
                         </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="container">
+        <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="{{currentLog?.imageUrl}}" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{currentLog?.name}}</h4>
+                      <p class="text-secondary mb-1">{{currentLog?.jobTitle}}</p>
+                      <p class="text-muted font-size-sm">{{currentLog?.joiningLocation}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.phone}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Joining Location</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.joiningLocation}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Joining Date</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.joiningDate}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Skill</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.skill}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Description</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{currentLog?.description}}
                     </div>
                   </div>
                 </div>

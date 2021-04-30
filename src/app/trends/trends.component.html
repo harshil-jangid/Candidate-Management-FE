@@ -11,22 +11,29 @@
 <div style="display:flex; justify-content:center; margin:30px">
 <input style="margin:10px" class="btn btn-primary" (click)="activeTrend('first')" type="button" value="Skills">
 <input style="margin:10px" class="btn btn-primary" (click)="activeTrend('second')" type="submit" value="Location">
-<input style="margin:10px" class="btn btn-primary" (click)="activeTrend('third')" type="reset" value="Reset">
 </div>
 
 <div style="display:flex; justify-content:center;" *ngIf="first">
-<ngx-charts-pie-chart 
-    [results]="skills"
-    [legend]="true"
-    [legendTitle]="'Skills'" 
-    [view]="[1400,600]"
-    [labels]="true" >
-</ngx-charts-pie-chart>
+<ngx-charts-bar-vertical-2d
+  [view]="[700, 400]"
+  [scheme]="colorScheme"
+  [results]="skills"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [legendTitle]="legendTitle">
+</ngx-charts-bar-vertical-2d>
 </div>
 
 
 <div style="display:flex; justify-content:center;" *ngIf="second">
-<ngx-charts-bar-vertical 
+
+<ngx-charts-bar-vertical-2d
   [view]="[700, 400]"
   [scheme]="colorScheme"
   [results]="locations"
@@ -38,20 +45,15 @@
   [showYAxisLabel]="showYAxisLabel"
   [xAxisLabel]="xAxisLabel"
   [yAxisLabel]="yAxisLabel"
-  (select)="onSelect($event)">
-</ngx-charts-bar-vertical>
+  [legendTitle]="legendTitle"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)">
+</ngx-charts-bar-vertical-2d>
 </div>
 
 
-<div style="display:flex; justify-content:center;" *ngIf="third">
-<ngx-charts-advanced-pie-chart 
-  [view]="[700, 400]"
-  [scheme]="colorScheme"
-  [results]="skills"
-  [gradient]="gradient"
-  >
-</ngx-charts-advanced-pie-chart>
-</div>
+
 
 
 

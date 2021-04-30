@@ -9,13 +9,11 @@ import {
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
-import { CandidateService } from './services/candidate.service';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { CandidatesProfileComponent } from './candidates-profile/candidates-profile.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import { RouterModule } from '@angular/router';
 import { TrendsComponent } from './trends/trends.component';
-import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogsComponent } from './logs/logs.component';
@@ -39,7 +37,6 @@ import { LogsComponent } from './logs/logs.component';
       {path: 'logs', component: LogsComponent, canActivate: [AuthGuardService]}
 
     ]),
-    ChartsModule,
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,

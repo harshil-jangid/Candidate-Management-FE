@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Candidate } from '../models/candidate';
 import { Logs } from '../models/logs';
 import { LogsService } from '../services/logs.service'
 @Component({
@@ -10,14 +11,15 @@ import { LogsService } from '../services/logs.service'
 export class LogsComponent implements OnInit {
   detailOldLog: any;
   detailNewLog: any;
+  currentLog: any;
 
   constructor(
     private logsService: LogsService
   ) { }
 
   public logs: Logs[] = [];
-    public oldValues: any[]=[];
-    public newValues: any[]=[];
+  public oldValues: any[]=[];
+  public newValues: any[]=[];
 
   ngOnInit(): void {
     this.getLogs();
@@ -35,8 +37,11 @@ export class LogsComponent implements OnInit {
           this.oldValues.push(jsonObjOld); 
           this.newValues.push(jsonObjNew); 
 
+          console.log(jsonObjOld);
         }
         console.log(this.oldValues);
+        console.log(this.newValues);
+
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);
@@ -53,10 +58,24 @@ export class LogsComponent implements OnInit {
     if (mode === 'details') {
       this.detailOldLog = oldValue;
       this.detailNewLog = newValue;
-
       console.log(this.detailOldLog);
       console.log(this.detailNewLog);
       button.setAttribute('data-target', '.bd-example-modal-lg');
+    }
+    container?.appendChild(button);
+    button.click();
+  }
+
+  public onOpenModal2(candidate: Candidate, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if (mode === 'details') {
+      this.currentLog = candidate;
+      console.log(candidate);
+      button.setAttribute('data-target', '.bd-example-modal-lg2');
     }
     container?.appendChild(button);
     button.click();
