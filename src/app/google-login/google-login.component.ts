@@ -20,10 +20,10 @@ export class GoogleLoginComponent {
     private cookie: CookieService) { }
 
   
-  // signInWithGoogle(): void {
-  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-  //   .then(() => this.router.navigate(['candidates']));;
-  // }
+  
+  refreshToken(): void{
+    this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  }
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user)=>{

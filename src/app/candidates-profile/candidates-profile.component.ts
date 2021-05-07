@@ -20,15 +20,15 @@ export class CandidatesProfileComponent implements OnInit {
   editCandidate!: Candidate;
   deleteCurrCandidate!: Candidate;
   detailsCandidate!: Candidate;
-  
-  noResults=false;
+
+  noResults = false;
   constructor(
     public socialAuthServive: SocialAuthService,
     private router: Router,
     private candidateService: CandidateService
-    ) {}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getCandidates();
   }
 
@@ -36,12 +36,12 @@ export class CandidatesProfileComponent implements OnInit {
     this.socialAuthServive.signOut().then(() => this.router.navigate(['']));
   }
 
-  public getCandidates(): void{
+  public getCandidates(): void {
     this.candidateService.getCandidates().subscribe(
-      (response: Candidate[])=>{
-        this.candidates=response;
+      (response: Candidate[]) => {
+        this.candidates = response;
       },
-      (error:HttpErrorResponse)=>{
+      (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
@@ -63,43 +63,41 @@ export class CandidatesProfileComponent implements OnInit {
   }
 
   public onDeleteCandidate(candidateId: number, deletedById: string): void {
-    this.candidateService.deleteCandidate(candidateId,deletedById).subscribe(
+    this.candidateService.deleteCandidate(candidateId, deletedById).subscribe(
       (response: void) => {
         console.log(response);
         this.getCandidates();
-        // editForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        // editForm.reset();
       }
     );
   }
-  
-  public searchCandidates(key: string):void{
-    const results: Candidate[]=[];
-    for(const candidate of this.candidates){
-      if(candidate.name.toLowerCase().indexOf(key.toLowerCase()) != -1
-      || candidate.jobTitle.toLowerCase().indexOf(key.toLowerCase()) != -1
-      || candidate.phone.toLowerCase().indexOf(key.toLowerCase()) != -1
-      || candidate.joiningLocation.toLowerCase().indexOf(key.toLowerCase()) != -1
-      || candidate.skill.toLowerCase().indexOf(key.toLowerCase()) != -1
-      || candidate.collegeName.toLowerCase().indexOf(key.toLowerCase()) != -1){
+
+  public searchCandidates(key: string): void {
+    const results: Candidate[] = [];
+    for (const candidate of this.candidates) {
+      if (candidate.name.toLowerCase().indexOf(key.toLowerCase()) != -1
+        || candidate.jobTitle.toLowerCase().indexOf(key.toLowerCase()) != -1
+        || candidate.phone.toLowerCase().indexOf(key.toLowerCase()) != -1
+        || candidate.joiningLocation.toLowerCase().indexOf(key.toLowerCase()) != -1
+        || candidate.skill.toLowerCase().indexOf(key.toLowerCase()) != -1
+        || candidate.collegeName.toLowerCase().indexOf(key.toLowerCase()) != -1) {
         results.push(candidate);
-        this.noResults=false;
+        this.noResults = false;
       }
     }
     this.candidates = results;
-    if(key && results.length === 0){
+    if (key && results.length === 0) {
       this.candidates = results;
-      this.noResults=true;
+      this.noResults = true;
     }
-    else if(results.length === 0 || !key){
+    else if (results.length === 0 || !key) {
       this.getCandidates();
-      this.noResults=false;
+      this.noResults = false;
     }
-    
-    
+
+
   }
 
   public onUpdateCandidate(candidate: Candidate): void {
@@ -107,11 +105,9 @@ export class CandidatesProfileComponent implements OnInit {
       (response: Candidate) => {
         console.log(response);
         this.getCandidates();
-        // editForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        // editForm.reset();
       }
     );
   }
