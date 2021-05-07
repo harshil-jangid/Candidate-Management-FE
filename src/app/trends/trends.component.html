@@ -5,12 +5,12 @@
 </nav>
 
 <div style="display:flex; margin:30px">
-<a href="/candidates" style="color:white;" class="btn btn-primary"> < Go Back</a>
+<a  id="back" href="/candidates" style="color:white;" class="btn btn-primary"> < Go Back</a>
 </div>
 
 <div style="display:flex; justify-content:center; margin:30px">
-<input style="margin:10px" class="btn btn-primary" (click)="activeTrend('first')" type="button" value="Skills">
-<input style="margin:10px" class="btn btn-primary" (click)="activeTrend('second')" type="submit" value="Location">
+<input id="skills" style="margin:10px" class="btn btn-primary" (click)="activeTrend('first')" type="button" value="Skills">
+<input id="location" style="margin:10px" class="btn btn-primary" (click)="activeTrend('second')" type="submit" value="Location">
 </div>
 
 <div style="display:flex; justify-content:center;" *ngIf="first">

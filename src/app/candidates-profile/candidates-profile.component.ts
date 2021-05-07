@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { CandidateService } from '../services/candidate.service';
 import { Candidate } from '../models/candidate';
 import { Router } from '@angular/router';
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { SocialAuthService } from 'angularx-social-login';
 
 
 @Component({

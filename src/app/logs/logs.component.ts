@@ -39,8 +39,7 @@ export class LogsComponent implements OnInit {
 
           console.log(jsonObjOld);
         }
-        console.log(this.oldValues);
-        console.log(this.newValues);
+        
 
       },
       (error:HttpErrorResponse)=>{

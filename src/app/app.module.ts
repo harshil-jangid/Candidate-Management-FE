@@ -1,13 +1,10 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  GoogleLoginProvider,
-} from 'angularx-social-login';
-
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { AppComponent } from './app.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { CandidatesProfileComponent } from './candidates-profile/candidates-profile.component';
@@ -17,6 +14,9 @@ import { TrendsComponent } from './trends/trends.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogsComponent } from './logs/logs.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -26,24 +26,20 @@ import { LogsComponent } from './logs/logs.component';
     CandidatesProfileComponent,
     TrendsComponent,
     LogsComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [
-    RouterModule.forRoot([
-      {path: '', component: GoogleLoginComponent},
-      {path: 'candidates', component: CandidatesProfileComponent, canActivate: [AuthGuardService]},
-      // {path: '**', component: GoogleLoginComponent},
-      {path: 'trends', component: TrendsComponent, canActivate: [AuthGuardService]},
-      {path: 'logs', component: LogsComponent, canActivate: [AuthGuardService]}
-
-    ]),
+    AppRoutingModule,
+    RouterModule,
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     SocialLoginModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
     
   ],
   providers: [{
@@ -57,6 +53,11 @@ import { LogsComponent } from './logs/logs.component';
         }
       ]
     }
+  },
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
   },
     AuthGuardService],
   bootstrap: [AppComponent]
